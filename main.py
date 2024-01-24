@@ -33,6 +33,10 @@ async def auth_callback(request: Request):
     user = await sso.verify_and_process(request)
     return user
 
+@app.get("/")
+async def index(request: Request):
+    host = request.headers.get("host")
+    return {"success": host}
 
 if __name__ == "__main__":
     uvicorn.run(app="examples.google:app", host="127.0.0.1", port=5000)
